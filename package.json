@@ -18,6 +18,7 @@
   "homepage": "https://github.com/kenfdev/YelpCamp-ja#readme",
   "dependencies": {
     "ejs": "^3.1.6",
+    "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.13.7"
