@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kenfdev/YelpCamp-ja#readme",
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.13.2",
     "cloudinary": "^1.27.0",
     "connect-flash": "^0.1.1",
     "dotenv": "^10.0.0",
