@@ -20,7 +20,10 @@ const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp',
+const MongoStore = require('connect-mongo');
+
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+mongoose.connect(dbUrl,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -48,9 +51,24 @@ app.use(mongoSanitize({
     replaceWith: '_',
 }));
 
+const secret = process.env.SECRET || 'mysecret';
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret
+    },
+    touchAfter: 24 * 3600 // time period in seconds
+});
+
+store.on('error', e => {
+    console.log('セッションストアエラー', e);
+});
+
 const sessionConfig = {
+    store,
     name: 'session',
-    secret: 'mysecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -131,6 +149,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 });
 
-app.listen(3000, () => {
-    console.log('ポート3000でリクエスト待受中...');
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+    console.log(`ポート${port}でリクエスト待受中...`);
 });
