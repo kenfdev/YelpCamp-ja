@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon app.js",
+    "seed": "node seeds/index.js"
   },
   "repository": {
     "type": "git",
@@ -39,5 +40,8 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
     "sanitize-html": "^2.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
